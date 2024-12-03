@@ -9,7 +9,7 @@ internal class RestaurantsRepository(RestaurantsDbContext restaurantsDb) : IRest
 {
     public async Task<int> CreateAsync(Restaurant restaurant)
     {
-       restaurantsDb.Restaurnts.Add(restaurant);
+       restaurantsDb.Restaurants.Add(restaurant);
 
        await restaurantsDb.SaveChangesAsync();
 
@@ -19,7 +19,7 @@ internal class RestaurantsRepository(RestaurantsDbContext restaurantsDb) : IRest
     public async Task<IEnumerable<Restaurant>> GetAllAsync()
     {
         var restaurants = await restaurantsDb
-            .Restaurnts.Include(r => r.Dishes).ToListAsync();
+            .Restaurants.Include(r => r.Dishes).ToListAsync();
 
         return restaurants;
     
@@ -27,7 +27,7 @@ internal class RestaurantsRepository(RestaurantsDbContext restaurantsDb) : IRest
 
     public async Task<Restaurant?> GetByIdAsync(int id)
     {
-        var restaurant = await restaurantsDb.Restaurnts
+        var restaurant = await restaurantsDb.Restaurants
             .Include(r => r.Dishes)
             .FirstOrDefaultAsync(r => r.Id == id);
 

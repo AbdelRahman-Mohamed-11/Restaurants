@@ -1,22 +1,20 @@
 ﻿using FluentValidation;
-using Restaurants.Application.Restaurants.Dtos;
+namespace Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 
-namespace Restaurants.Application.Restaurants.Validators;
-
-public class CreateRestaurantDtoValidator : AbstractValidator<CreateRestaurantDto>
+public class CreateRestaurantCommandValidator : AbstractValidator<CreateRestaurantCommand>
 {
     private readonly List<string> ValidCategories = ["Italian", "Mexican", "Japanese", "American", "Indian"];
-    public CreateRestaurantDtoValidator()
+    public CreateRestaurantCommandValidator()
     {
         RuleFor(dto => dto.Name)
             .Length(3, 50)
             .WithMessage("Name must be between 3 and 50 characters");
 
         RuleFor(dto => dto.Category)
-            .Must( ValidCategories.Contains)
+            .Must(ValidCategories.Contains)
             .WithMessage("categort must be (Italian or Mexican or Japanese or American or Indian )");
-            
-            
+
+
 
         RuleFor(dto => dto.ContactEmail)
             .EmailAddress()

@@ -10,13 +10,14 @@ namespace Restaurants.Application.Extensions
     {
         public static IServiceCollection AddApplication(this IServiceCollection services) {
             var applicationAssembly = typeof(DependencyInjection).Assembly;
-            services.AddScoped<IRestaurantsService, RestaurantsService>();
-
+            
             services.AddSingleton<RestaurantMapper>();
 
             services.AddValidatorsFromAssembly(applicationAssembly)
                     .AddFluentValidationAutoValidation();
 
+            services.AddMediatR(opt => opt.RegisterServicesFromAssembly(applicationAssembly));
+ 
             return services;
        
         }

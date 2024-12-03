@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 using Restaurants.Domain.Entities;
 
 namespace Restaurants.Application.Restaurants.Dtos
@@ -14,7 +15,7 @@ namespace Restaurants.Application.Restaurants.Dtos
                 .Map(dest => dest.City, src => src.Address != null ? src.Address.City : null);
 
             // Map CreateRestaurantDto to Restaurant
-            TypeAdapterConfig<CreateRestaurantDto, Restaurant>.NewConfig()
+            TypeAdapterConfig<CreateRestaurantCommand, Restaurant>.NewConfig()
                 .Map(dest => dest.Address, src => src.Street != null || src.PostalCode != null || src.City != null
                     ? new Address
                     {
@@ -35,9 +36,9 @@ namespace Restaurants.Application.Restaurants.Dtos
             return restaurants.Adapt<List<RestaurantDTO>>();
         }
 
-        public Restaurant MapCreateRestaurantToRestaurant(CreateRestaurantDto dto)
+        public Restaurant MapCreateRestaurantCommandToRestaurant(CreateRestaurantCommand createRestaurantCommand)
         {
-            return dto.Adapt<Restaurant>();
+            return createRestaurantCommand.Adapt<Restaurant>();
         }
     }
 }
