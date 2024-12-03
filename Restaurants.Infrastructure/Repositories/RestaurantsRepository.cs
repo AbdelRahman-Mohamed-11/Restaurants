@@ -40,4 +40,11 @@ internal class RestaurantsRepository(RestaurantsDbContext restaurantsDb) : IRest
 
         await restaurantsDb.SaveChangesAsync();
     }
+
+    public Task UpdateAsync(Restaurant restaurant)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task SaveAsync() => await restaurantsDb.SaveChangesAsync();
 }

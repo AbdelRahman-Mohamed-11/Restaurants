@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
+using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
 using Restaurants.Domain.Entities;
 
 namespace Restaurants.Application.Restaurants.Dtos
@@ -24,6 +25,8 @@ namespace Restaurants.Application.Restaurants.Dtos
                         City = src.City
                     }
                     : null);
+
+                
         }
 
         public RestaurantDTO MapRestaurantToDto(Restaurant restaurant)
@@ -40,5 +43,7 @@ namespace Restaurants.Application.Restaurants.Dtos
         {
             return createRestaurantCommand.Adapt<Restaurant>();
         }
+
+       
     }
 }
