@@ -13,7 +13,7 @@ namespace Restaurants.Application.Restaurants.Queries.GetRestaurantById
     {
         public async Task<RestaurantDTO?> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)
         {
-            logger.LogInformation($"Getting a restaurant with ID {request.Id}");
+            logger.LogInformation("Getting a restaurant with ID : {RestaurantId}", request.Id);
 
             var restaurant = await restaurantsRepository.GetByIdAsync(request.Id);
 

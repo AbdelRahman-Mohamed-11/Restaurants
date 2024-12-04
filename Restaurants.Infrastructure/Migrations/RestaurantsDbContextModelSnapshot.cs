@@ -50,7 +50,7 @@ namespace Restaurants.Infrastructure.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("Dishes");
+                    b.ToTable("Dishes", (string)null);
                 });
 
             modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
@@ -84,7 +84,7 @@ namespace Restaurants.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Restaurnts");
+                    b.ToTable("Restaurnts", (string)null);
                 });
 
             modelBuilder.Entity("Restaurants.Domain.Entities.Dish", b =>
@@ -116,7 +116,7 @@ namespace Restaurants.Infrastructure.Migrations
 
                             b1.HasKey("RestaurantId");
 
-                            b1.ToTable("Restaurnts");
+                            b1.ToTable("Restaurnts", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("RestaurantId");

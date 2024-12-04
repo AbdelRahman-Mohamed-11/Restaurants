@@ -5,8 +5,18 @@ using Restaurants.Application.Extensions;
 using Restaurants.Infrastructure.Extensions;
 using Restaurants.Infrastructure.Seeders;
 using Scalar.AspNetCore;
+using Serilog;
+using Serilog.Events;
 var builder = WebApplication.CreateBuilder(args);
 
+// Register Serilog with the Host.
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration
+        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)  // Set logging level
+        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Information)
+        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -22,6 +32,8 @@ builder.Services.AddSingleton(config);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {

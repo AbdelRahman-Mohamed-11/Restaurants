@@ -17,7 +17,8 @@ public static class DependencyInjection
         services.AddDbContext<RestaurantsDbContext>(
             options =>
             options.UseSqlServer(
-                config.GetConnectionString("RestaurantsDb")));
+                config.GetConnectionString("RestaurantsDb"))
+            .EnableSensitiveDataLogging());
 
         services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
 
