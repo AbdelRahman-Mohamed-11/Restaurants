@@ -1,7 +1,8 @@
-﻿using MediatR;
+﻿using LightResults;
+using MediatR;
 using Restaurants.Application.Restaurants.Dtos;
 
 namespace Restaurants.Application.Restaurants.Queries.GetRestaurantById
 {
-    public record GetRestaurantByIdQuery(int Id) : IRequest<RestaurantDTO?>;
+    public record GetRestaurantByIdQuery(int Id) : IRequest<RestaurantDTO>;
 }

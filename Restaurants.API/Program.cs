@@ -1,6 +1,7 @@
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurants.API.Middlewares;
 using Restaurants.Application.Extensions;
 using Restaurants.Infrastructure.Extensions;
 using Restaurants.Infrastructure.Seeders;
@@ -13,9 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, configuration) =>
 {
     configuration
-        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)  // Set logging level
-        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Information)
-        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
+        .ReadFrom.Configuration(context.Configuration).
+        WriteTo.Seq("http://localhost:5341");
 });
 // Add services to the container.
 
@@ -24,7 +24,19 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration)
     .AddApplication();
 
+builder.Services.AddProblemDetails();
+
 builder.Services.AddOpenApi();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Restaurant API",
+        Description = "API for managing restaurant-related operations."
+    });
+});
 
 // mapster configuration
 var config = TypeAdapterConfig.GlobalSettings;
@@ -33,11 +45,17 @@ builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 var app = builder.Build();
 
+app.UseErrorHandling();
+
 app.UseSerilogRequestLogging();
+
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    //app.UseDeveloperExceptionPage();
 
     app.MapOpenApi();
 
