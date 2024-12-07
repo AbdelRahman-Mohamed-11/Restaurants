@@ -20,7 +20,8 @@ internal class RestaurantsRepository(RestaurantsDbContext restaurantsDb) : IRest
     public async Task<IEnumerable<Restaurant>> GetAllAsync()
     {
         var restaurants = await restaurantsDb
-            .Restaurants.Include(r => r.Dishes).ToListAsync();
+            .Restaurants
+            .AsNoTracking().Include(r => r.Dishes).ToListAsync();
 
         return restaurants;
     
@@ -43,8 +44,11 @@ internal class RestaurantsRepository(RestaurantsDbContext restaurantsDb) : IRest
 
     public Task UpdateAsync(Restaurant restaurant)
     {
+        // you can implement it if you want , no need of this untill now.
         throw new NotImplementedException();
     }
+
+
 
     public async Task SaveAsync() => await restaurantsDb.SaveChangesAsync();
 }

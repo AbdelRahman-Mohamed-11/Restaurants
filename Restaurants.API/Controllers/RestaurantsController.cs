@@ -7,6 +7,8 @@ using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
 using Restaurants.Application.Restaurants.Dtos;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
+using Swashbuckle.AspNetCore.Annotations;
+
 
 namespace Restaurants.API.Controllers
 {

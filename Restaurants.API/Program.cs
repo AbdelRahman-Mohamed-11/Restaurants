@@ -36,6 +36,7 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Restaurant API",
         Description = "API for managing restaurant-related operations."
     });
+
 });
 
 // mapster configuration

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Restaurants.Application.Dishes.Dtos;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
 using Restaurants.Domain.Entities;
@@ -44,6 +45,11 @@ namespace Restaurants.Application.Restaurants.Dtos
             return createRestaurantCommand.Adapt<Restaurant>();
         }
 
-       
+        public List<DishDto> MapDishesToDishesDto(IEnumerable<Dish> dishes)
+        {
+            return dishes.Adapt<List<DishDto>>();
+        }
+
+
     }
 }
